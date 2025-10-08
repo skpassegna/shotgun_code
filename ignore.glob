@@ -1,23 +1,62 @@
-.git
-.bundle
+# ============================================================================
+# Shotgun Code - Default Ignore Patterns
+# ============================================================================
+# This file contains default patterns for files that should be excluded from
+# context generation. These patterns are embedded into the application and
+# can be customized via the UI settings.
+#
+# Pattern Syntax: Standard .gitignore glob patterns
+# - Use * for wildcards
+# - Use / at end for directories
+# - Use ! to negate patterns
+# ============================================================================
 
+# Version Control
+.git/
+.svn/
+.hg/
+.bundle/
+
+# ============================================================================
+# Binary Files - Images
+# ============================================================================
 *.jpg
 *.jpeg
 *.png
 *.gif
 *.bmp
 *.tiff
+*.tif
 *.webp
 *.svg
 *.ico
 *.icns
+*.psd
+*.ai
+*.eps
+*.raw
+*.cr2
+*.nef
+*.orf
+*.sr2
 
+# ============================================================================
+# Binary Files - Audio
+# ============================================================================
 *.mp3
 *.wav
 *.ogg
 *.aac
 *.flac
+*.wma
+*.m4a
+*.opus
+*.ape
+*.alac
 
+# ============================================================================
+# Binary Files - Video
+# ============================================================================
 *.mp4
 *.avi
 *.mov
@@ -25,22 +64,15 @@
 *.mkv
 *.webm
 *.flv
+*.m4v
+*.mpg
+*.mpeg
+*.3gp
+*.ogv
 
-node_modules/
-vendor/
-.idea/
-.vscode/
-.vs/
-__pycache__/
-
-tmp/
-cache/
-*.tmp
-*.temp
-*.bak
-*.swp
-*.swo
-
+# ============================================================================
+# Binary Files - Archives & Compressed
+# ============================================================================
 *.zip
 *.rar
 *.7z
@@ -48,18 +80,147 @@ cache/
 *.gz
 *.tgz
 *.bz2
+*.xz
+*.lz
+*.lzma
+*.z
+*.cab
+*.iso
+*.dmg
+*.pkg
+*.deb
+*.rpm
 
-*.sqlite
-*.sqlite3
-*.db
-*.mdb
-*.sql
-*.dump
-
+# ============================================================================
+# Binary Files - Executables & Libraries
+# ============================================================================
 *.exe
 *.dll
 *.so
 *.dylib
 *.bin
-*.iso
-*.dmg
+*.o
+*.a
+*.lib
+*.obj
+*.class
+*.pyc
+*.pyo
+*.elc
+
+# ============================================================================
+# Binary Files - Documents (Binary Formats)
+# ============================================================================
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.odt
+*.ods
+*.odp
+*.pages
+*.numbers
+*.key
+
+# ============================================================================
+# Binary Files - Fonts
+# ============================================================================
+*.ttf
+*.otf
+*.woff
+*.woff2
+*.eot
+
+# ============================================================================
+# Binary Files - Databases
+# ============================================================================
+*.sqlite
+*.sqlite3
+*.db
+*.mdb
+*.accdb
+*.sql
+*.dump
+
+# ============================================================================
+# Binary Files - Other
+# ============================================================================
+*.swf
+*.fla
+*.jar
+*.war
+*.ear
+*.apk
+*.ipa
+*.wasm
+
+# ============================================================================
+# Development Directories
+# ============================================================================
+node_modules/
+vendor/
+bower_components/
+jspm_packages/
+.idea/
+.vscode/
+.vs/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+venv/
+env/
+.env/
+virtualenv/
+
+# ============================================================================
+# Build & Distribution Directories
+# ============================================================================
+dist/
+build/
+out/
+target/
+bin/
+obj/
+*.egg-info/
+.next/
+.nuxt/
+.cache/
+
+# ============================================================================
+# Temporary & Cache Files
+# ============================================================================
+tmp/
+temp/
+cache/
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================================================
+# Log Files
+# ============================================================================
+*.log
+logs/
+*.log.*
+
+# ============================================================================
+# Lock Files (often large and auto-generated)
+# ============================================================================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+Gemfile.lock
+Cargo.lock
+poetry.lock
+composer.lock

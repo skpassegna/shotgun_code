@@ -1,227 +1,353 @@
-![](https://github.com/user-attachments/assets/058bf4a2-9f81-406c-96ea-795cd4eaf118)
+<div align="center">
 
-**Tired of Cursor cutting off context, missing your files and folders, and spitting out empty responses?**
+![Shotgun Code](screenshot.png)
 
-Save your context with Shotgun!
-→ Prepare a truly GIGANTIC prompt
-→ Paste it into **Google AI Studio** and receive a massive patch for your code. 25 free queries per day!
-→ Drop that patch into Cursor or Windsurf and apply the entire diff in a single request.
+# Shotgun Code
 
-**That means you get 25 huge, fully coherent patches per day for your codebase—absolutely free, thanks to complete context transfer.**
+**Modern desktop app for generating massive codebase snapshots and intelligently splitting diffs for AI coding assistants.**
 
-Perfect for dynamically-typed languages:
+[![License](https://img.shields.io/badge/license-Custom-blue.svg)](LICENSE.md)
+[![Go Version](https://img.shields.io/badge/go-%3E%3D1.20-blue.svg)](https://golang.org/)
+[![Wails](https://img.shields.io/badge/Wails-v2-blue.svg)](https://wails.io/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3-green.svg)](https://vuejs.org/)
 
-Python
-JavaScript
+[Download Latest Release](https://github.com/glebkudr/shotgun_code/releases) • [Documentation](#documentation) • [Contributing](CONTRIBUTING.md)
 
-# Shotgun App
-
-*One‑click codebase "blast" for Large‑Language‑Model workflows.*
+</div>
 
 ---
 
-## 1. What Shotgun Does
-Shotgun is a tiny desktop tool that **explodes an entire project into a single,
-well‑structured text payload** designed for AI assistants.
-Think of it as a rapid‑fire alternative to copy‑pasting dozens of files by hand:
+## 🎯 What is Shotgun Code?
 
-*   **Select a folder → get an instant tree + file dump**
-    in a predictable delimiter format (`*#*#*...*#*#*begin … *#*#*end*#*#*`).
-*   **Tick check‑boxes to exclude noise** (logs, build artifacts, `node_modules`, …).
-*   **Paste the result into ChatGPT, Gemini 2.5, Cursor, etc.**
-    to ask for multi‑file edits, refactors, bug fixes, reviews, or documentation.
-*   **Receive a diff‑style reply** and apply changes with your favourite patch tool.
+**Tired of AI coding assistants cutting off context, missing files, and giving incomplete responses?**
 
-Shotgun trades surgical, single‑file prompts for a **"whole‑repository blast"** –
-hence the name.
+Shotgun Code solves this by generating **unlimited-size codebase snapshots** for AI assistants like Cursor, Windsurf, ChatGPT, Claude, and Gemini.
 
----
+### The Problem
+- AI assistants have context limits (often 10MB or less)
+- Manual file selection is tedious and error-prone
+- Large diffs are hard to apply in one go
+- Copy-pasting between tools breaks your flow
 
-## 2. Why You Might Need It
+### The Solution
+✅ **Unlimited Context** – No size limits! Generate contexts as large as needed
+✅ **Smart File Selection** – VSCode-style tree with search, filtering, and tri-state checkboxes
+✅ **Direct LLM Integration** – Built-in support for Google Gemini, OpenAI, Anthropic, and custom APIs
+✅ **Intelligent Diff Splitting** – Advanced bin-packing algorithm splits large diffs optimally
+✅ **Real-time Updates** – File watching with hot reload when your codebase changes
+✅ **Keyboard Shortcuts** – Navigate efficiently with VSCode-style shortcuts
+✅ **Token Estimation** – Real-time token counting and cost calculation
 
-| Scenario                 | Pain Point                             | Shotgun Benefit                                           |
-|--------------------------|----------------------------------------|-----------------------------------------------------------|
-| **Bulk bug fixing**      | "Please fix X across 12 files."        | Generates a complete snapshot so the LLM sees all usages. |
-| **Large‑scale refactor** | IDE refactors miss edge cases.         | LLM gets full context and returns a patch set.            |
-| **On‑boarding review**   | New joiner must understand legacy code. | Produce a single, searchable text file to discuss in chat.  |
-| **Doc generation**       | Want docs/tests for every exported symbol. | LLM can iterate over full source without extra API calls. |
-| **Cursor / CodePilot prompts** | Tools accept pasted context but no filesystem. | Shotgun bridges the gap.                                  |
+**Perfect for:** Python, JavaScript, TypeScript, Go, and any dynamically-typed language
+
+Shotgun Code trades surgical, single-file prompts for a **"whole-repository blast"** – hence the name.
 
 ---
 
-## 3. Key Features
+## 🚀 Quick Start
 
-*   ⚡ **Fast tree scan** (Go + Wails backend) – thousands of files in milliseconds.
-*   ✅ **Interactive exclude list** – skip folders, temporary files, or secrets.
-*   📝 **Deterministic delimiters** – easy for LLMs to parse and for you to split.
-*   🔄 **Re‑generate anytime** – tweak the excludes and hit *Shotgun* again.
-*   🪶 **Lightweight** – no DB, no cloud; a single native executable plus a Vue UI.
-*   🖥️ **Cross‑platform** – Windows, macOS, Linux.
+### Download & Install
 
----
+**👉 [Download the latest release](https://github.com/glebkudr/shotgun_code/releases)**
 
-## 4. How It Works
+Choose the version for your operating system:
+- **Windows:** `shotgun_code-windows-amd64.exe`
+- **macOS:** `shotgun_code-darwin-arm64.app.zip` (Apple Silicon) or `shotgun_code-darwin-amd64` (Intel)
+- **Linux:** `shotgun_code-linux-amd64`
 
-(This describes the UI flow. The core `GenerateShotgunOutput` Go function remains the primary backend logic for creating the text payload based on the selected root and exclusions.)
+### First Run
 
-1.  **Step 1: Prepare Context**
-    -   User selects a project folder.
-    -   The file tree is displayed in the `LeftSidebar`.
-    -   User can mark files/folders for exclusion.
-    -   The application automatically (or via a button) triggers context generation in Go (`GenerateShotgunOutput`).
-    -   The resulting context (tree + file contents) is stored in `shotgunPromptContext` and passed to `CentralPanel.vue`, which in turn makes it available to `Step2GenerateDiff.vue`.
-2.  **Step 2: Compose Prompt**
-    -   `Step2GenerateDiff.vue` is shown.
-    -   It displays the `shotgunPromptContext` (likely in a read-only textarea).
-    -   User types their instructions for the LLM into another textarea (the prompt).
-    -   User clicks "Compose Prompt" (was "Generate Diff").
-    -   `MainLayout.vue` (simulates) sending the `shotgunPromptContext` and the user's prompt to an LLM.
-    -   (Simulated) LLM returns a diff, which is then displayed in the "Diff Viewer" section of `Step2GenerateDiff.vue`.
-3.  **Step 3: Execute Prompt**
-    -   `Step3ExecuteDiff.vue` is shown.
-    -   User clicks "Execute Prompt" (was "Execute Diff").
-    -   `MainLayout.vue` (simulates) the "execution" of this prompt/diff. This step is more conceptual in the current stubbed implementation but would represent running or applying the changes indicated by the LLM.
-    -   Logs appear in the step-specific console within `Step3ExecuteDiff.vue` and/or the `BottomConsole.vue`.
-4.  **Step 4: Apply Patch**
-    -   `Step4ApplyPatch.vue` is shown.
-    -   User interacts with a (currently stubbed) patch editor.
-    -   User clicks "Apply Selected" or "Apply All & Finish".
-    -   `MainLayout.vue` (simulates) applying these patches.
+1. **Launch the app** – Double-click the downloaded file
+2. **Select your project folder** – Choose the root directory of your codebase
+3. **Select files** – Use the file tree to choose which files to include
+4. **Choose a mode** – Development, Architecture, Debug, or Tasks
+5. **Describe your task** – Tell the AI what you want to accomplish
+6. **Execute** – Use built-in LLM integration or copy-paste to external tools
+7. **Apply patches** – Copy the generated code back to your editor
+
+That's it! You're ready to blast your entire codebase into an AI's context window.
 
 ---
 
-## 5. Installation
+## ✨ Key Features
 
-### 5.1. Prerequisites
-*   **Go ≥ 1.20**   `go version`
-*   **Node.js LTS**  `node -v`
-*   **Wails CLI**    `go install github.com/wailsapp/wails/v2/cmd/wails@latest`
+### 🎯 Smart File Selection
+- **VSCode-style file tree** with tri-state checkboxes
+- **Search & filter** – Find files instantly with Ctrl+F
+- **Smart exclusions** – Respects `.gitignore`, custom patterns, and manual exclusions
+- **Bulk actions** – Select all, invert selection, expand/collapse all
+- **File metadata** – See file sizes and types at a glance
 
-### 5.2. Clone & Bootstrap
+### 🤖 Direct LLM Integration
+- **Google Gemini** – Best for large contexts (2M tokens), 25 free queries/day
+- **OpenAI GPT** – GPT-4, GPT-4 Turbo, and GPT-3.5
+- **Anthropic Claude** – Claude 3 Opus, Sonnet, and Haiku
+- **Custom APIs** – Connect to any OpenAI-compatible endpoint
+- **Token estimation** – Real-time cost calculation before execution
+
+### ✂️ Intelligent Diff Splitting
+- **Advanced bin-packing algorithm** – Optimally splits large diffs
+- **Configurable size** – Set lines per split (default: 500)
+- **Preview splits** – See how your diff will be divided
+- **Copy individual splits** – Apply patches one at a time
+
+### ⚡ Modern UX/UI
+- **9-screen workflow** – Guided onboarding-style navigation
+- **Keyboard shortcuts** – Ctrl+F, Ctrl+A, Ctrl+Enter, Escape, and more
+- **Toast notifications** – Real-time feedback for all operations
+- **Job queue status** – Monitor background tasks
+- **Dark mode** – Professional VSCode-inspired design
+
+### 🔧 Advanced Features
+- **Unlimited context** – No 10MB limit! Generate contexts as large as needed
+- **File watching** – Real-time updates when your codebase changes
+- **Multi-tier clipboard** – WSL→Wails→Browser fallback for reliable copy
+- **Session persistence** – Save and restore your workflow state
+- **Cross-platform** – Windows, macOS, Linux with native performance
+
+---
+
+## 📖 How to Use
+
+Shotgun Code uses a modern, 9-screen workflow inspired by VSCode:
+
+### 1️⃣ Welcome
+- Quick overview and getting started guide
+- Recent projects (coming soon)
+
+### 2️⃣ Folder Selection
+- Select your project root directory
+- Native OS folder picker
+- Remembers recent selections
+
+### 3️⃣ File Selection
+- **Enhanced file tree** with tri-state checkboxes
+- **Search** – Press Ctrl+F to find files instantly
+- **Bulk actions** – Ctrl+A (select all), Ctrl+I (invert), Ctrl+E (expand all)
+- **Smart badges** – See which files are excluded by `.gitignore` or custom rules
+- **Real-time updates** – File watcher refreshes tree when files change
+
+### 4️⃣ Mode Selection
+Choose your workflow mode:
+- **👨‍💻 Development** – Generate code, implement features, fix bugs
+- **🏗️ Architecture** – Design systems, plan refactors, create diagrams
+- **🐛 Debug** – Analyze errors, trace issues, suggest fixes
+- **📋 Tasks** – Break down work, create task lists, plan sprints
+
+### 5️⃣ Task Description
+- Describe what you want to accomplish
+- Add custom rules and constraints
+- Template suggestions based on selected mode
+- Keyboard shortcuts: Ctrl+S (save), Ctrl+Enter (continue)
+
+### 6️⃣ Prompt Review
+- **Preview** – See the generated codebase snapshot
+- **Token count** – Real-time estimation and cost calculation
+- **Edit** – Make last-minute adjustments
+- **Copy** – One-click copy to clipboard
+
+### 7️⃣ Execution
+Choose how to execute:
+- **🤖 Direct API** – Use built-in LLM integration (Gemini, OpenAI, Claude, Custom)
+- **📋 Manual** – Copy prompt and paste into external tool
+- **Progress tracking** – Monitor background jobs in real-time
+
+### 8️⃣ Split Diff (if needed)
+- **Intelligent splitting** – Advanced bin-packing algorithm
+- **Configure size** – Set lines per split (default: 500)
+- **Preview** – See how your diff will be divided
+- **Copy splits** – Apply patches one at a time
+
+### 9️⃣ Apply Patch
+- **Review** – Preview changes before applying
+- **Copy** – Easy integration with Cursor, Windsurf, or other tools
+- **Summary** – See what was accomplished
+
+---
+
+## ⌨️ Keyboard Shortcuts
+
+Master these shortcuts for a 10x faster workflow:
+
+### Global Navigation
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Enter` | Continue to next screen |
+| `Escape` | Go back to previous screen |
+| `Ctrl+H` | Return to home screen |
+
+### File Selection Screen
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+F` | Focus search box |
+| `Ctrl+A` | Select all files |
+| `Ctrl+I` | Invert selection |
+| `Ctrl+E` | Expand all folders |
+| `Ctrl+Shift+E` | Collapse all folders |
+| `Escape` | Clear search (when search is focused) |
+
+### Text Editing Screens
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+S` | Save draft |
+| `Ctrl+Enter` | Submit and continue |
+| `Ctrl+K` | Clear text |
+
+---
+
+## 💡 Use Cases
+
+| Scenario | How Shotgun Code Helps |
+|----------|------------------------|
+| **🐛 Bulk Bug Fixing** | "Fix X across 12 files" – LLM sees all usages with unlimited context |
+| **♻️ Large Refactoring** | Get full context and intelligently-split patches for complex refactors |
+| **📚 Onboarding** | Generate a single, searchable context file for new team members |
+| **📝 Documentation** | LLM can iterate over full source to generate docs/tests |
+| **🔍 Code Review** | Provide complete context for thorough AI-assisted reviews |
+| **🏗️ Architecture Planning** | Analyze entire codebase structure for system design decisions |
+
+---
+
+## 💡 Best Practices
+
+### 🎯 File Selection
+- **Use search** – Press Ctrl+F to quickly find files
+- **Leverage .gitignore** – Automatically excludes build artifacts and dependencies
+- **Custom ignore patterns** – Add patterns to `ignore.glob` for project-specific exclusions
+- **Trim the noise** – Exclude lock files, vendored libs, generated assets, media files
+- **Check file sizes** – Large binary files are shown with size badges
+
+### 💬 Prompting
+- **Be specific** – Clear task descriptions get better results
+- **Use custom rules** – Add constraints, coding standards, or preferences
+- **Choose the right mode** – Development/Architecture/Debug/Tasks modes provide context
+- **Ask for diffs** – Request patch format for easier application
+- **Iterate** – Generate → Review → Execute → Refine → Repeat
+
+### 🤖 LLM Integration
+- **Google Gemini** – Best for large contexts (2M tokens), 25 free queries/day
+- **Check token count** – Estimate cost before executing expensive prompts
+- **Temperature settings** – Lower (0.3-0.5) for code, higher (0.7-0.9) for creative tasks
+- **Model selection** – Use flash models for speed, pro models for complex reasoning
+
+### ✂️ Diff Management
+- **Split large diffs** – Use intelligent splitting for diffs >500 lines
+- **Apply incrementally** – Test each split before applying the next
+- **Review before applying** – Always check generated patches
+- **Use version control** – Commit before applying large patches
+
+---
+
+## ❓ Troubleshooting
+
+### Common Issues
+
+**File tree not loading**
+- Check folder permissions
+- Try a different folder
+- Restart the app
+
+**Clipboard copy fails**
+- Try manual copy-paste mode
+- Check clipboard permissions
+- On WSL, ensure `clip.exe` is accessible
+
+**LLM API call fails**
+- Verify API key is correct
+- Check internet connection
+- Review error message in job queue
+
+**Slow performance**
+- Exclude large directories (node_modules, .git, build)
+- Reduce context size by excluding more files
+- Check background jobs in job queue
+
+### Getting Help
+
+- 📖 **Documentation** – See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup
+- 🐛 **Report bugs** – [GitHub Issues](https://github.com/glebkudr/shotgun_code/issues)
+- 💬 **Discussions** – [GitHub Discussions](https://github.com/glebkudr/shotgun_code/discussions)
+
+---
+
+## 🛠️ Development
+
+Want to contribute or build from source? See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
+
+### Quick Development Setup
+
 ```bash
-git clone https://github.com/glebkudr/shotgun_code
+# Clone the repository
+git clone https://github.com/glebkudr/shotgun_code.git
 cd shotgun_code
-go mod tidy           # backend deps
-cd frontend
-npm install           # Vue deps
-cd ..
-```
 
-### 5.3. Run in Dev Mode
-```bash
+# Install dependencies
+go mod tidy
+cd frontend && npm install && cd ..
+
+# Run in development mode
 wails dev
-```
-Hot‑reloads Vue; restart the command for Go code changes.
 
-### 5.4. Build a Release
-```bash
-wails build           # binaries land in build/bin/
+# Build for production
+wails build
 ```
 
----
+### Technology Stack
 
-## 6. Quick‑Start Workflow
-
-1.  Run `wails dev`. The app window will open.
-2.  **Step 1: Prepare Context**
-    - Click "Select Project Folder" and choose your repository root.
-    - In the left pane (`LeftSidebar`), expand folders and un-tick any items you wish to exclude from the context.
-    - Click the "Prepare Project Context & Proceed" button (typically in `Step1CopyStructure.vue` or a similar area for Step 1).
-    - The generated context (project tree and file contents) will be prepared internally.
-3.  **Step 2: Compose Prompt**
-    - The view will switch to Step 2 (`Step2GenerateDiff.vue`).
-    - The generated project context from Step 1 will be displayed (usually read-only).
-    - Enter your instructions for the LLM in the "Prompt Editor" textarea.
-    - Click "Compose Prompt".
-    - A (mock) diff will be generated and shown in the "Diff Viewer".
-4.  **Step 3: Execute Prompt**
-    - The view will switch to Step 3 (`Step3ExecuteDiff.vue`).
-    - Click "Execute Prompt".
-    - (Mock) execution logs will appear in the console areas.
-5.  **Step 4: Apply Patch**
-    - The view will switch to Step 4 (`Step4ApplyPatch.vue`).
-    - Interact with the (stubbed) patch editor.
-    - Click "Apply Selected" or "Apply All & Finish" to (simulate) completing the process.
-6.  You can navigate between completed steps using the top `HorizontalStepper` or the `LeftSidebar` step list.
+**Backend:** Go, Wails v2, fsnotify, go-gitignore
+**Frontend:** Vue.js 3, Pinia, Tailwind CSS, Vite
+**Features:** Async job queue, file watching, LLM integration, intelligent diff splitting
 
 ---
 
-## 7. Shotgun Output Anatomy
-```text
-app/
-├── main.go
-├── app.go
-└── frontend/
-    ├── App.vue
-    └── components/
-        └── FileTree.vue (example)
+## 🤝 Contributing
 
-<file path="main.go">
-package main
-...
-</file>
+We welcome contributions! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
 
-<file path="frontend/components/FileTree.vue">
-<template>
-...
-</template>
-</file>
-```
-*   **Tree View** – quick visual map for you & the LLM.
-*   **XML-like File Blocks** – <file path="path/to/file">...</file> for easy parsing by models.
+**Ways to Contribute:**
+- 🐛 [Report bugs](https://github.com/glebkudr/shotgun_code/issues/new?template=bug_report.md)
+- 💡 [Request features](https://github.com/glebkudr/shotgun_code/issues/new?template=feature_request.md)
+- 📝 Improve documentation
+- 🔧 Submit pull requests
+- ⭐ Star the repository if you find it useful!
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-## 8. Best Practices
-*   **Trim the noise** – exclude lock files, vendored libs, generated assets.
-    Less tokens → cheaper & more accurate completions.
-*   **Ask for diffs, not whole files** – keeps responses concise.
-*   **Iterate** – generate → ask → patch → re‑generate if needed.
-*   **Watch token limits** – even million‑token models have practical caps.
-    Use Shotgun scopes (root folder vs subfolder) to stay under budget.
+## 👥 Credits
+
+### Original Creator
+**Gleb Curly** ([@glebkudr](https://github.com/glebkudr)) – Project creator and original developer
+- Go backend with Wails framework
+- File system operations and context generation
+- Diff splitting algorithm
+- Original Vue.js frontend
+
+### UX/UI Redesign
+**Samuel Kpassegna** ([@skpassegna](https://github.com/skpassegna)) – Modern VSCode-style interface
+- Complete UX/UI redesign
+- Multi-screen workflow (9 screens)
+- Enhanced file tree with search and filtering
+- Modern component architecture
+- Keyboard shortcuts and toast notifications
+
+See [ATTRIBUTION.md](ATTRIBUTION.md) for full credits and acknowledgments.
 
 ---
 
-## 9. Troubleshooting
+## 📄 License
 
-| Symptom                     | Fix                                                          |
-|-----------------------------|--------------------------------------------------------------|
-| `wails: command not found`  | Ensure `$GOROOT/bin` or `$HOME/go/bin` is on `PATH`.         |
-| Blank window on `wails dev` | Check Node version & reinstall frontend deps.              |
-| Output too large            | Split Shotgun runs by subdirectory; or exclude binaries/tests. |
+Custom MIT-like license – see [LICENSE.md](LICENSE.md) for details.
 
 ---
 
-## 10. Roadmap
+<div align="center">
 
-- ✅ **Step 1: Prepare Context**  
-  Basic ability to select a project, exclude items, and generate a structured text context.
+**Shotgun Code** – Load, aim, blast your code straight into the mind of an LLM.
 
-- ✅ **Step 2: Compose Prompt**  
-  - ✅ **Watchman to hot-reload TreeView**  
-  - ✅ **Custom rules**
+*Iterate faster. Ship better. Code smarter.* 🚀
 
-- ☐ **Step 3: Execute Prompt**  
-  "Executing" the prompt and showing logs.
+[⬆ Back to Top](#shotgun-code)
 
-- ☐ **Step 4: Apply Patch**  
-  Enable applying patches inside Shotgun.  
-  - ☐ Direct API bridge to send output to OpenAI / Gemini without copy-paste  
-  - ☐ CLI version for headless pipelines  
-  - **Watch token limits** – even million-token models have practical caps. Use Shotgun scopes (root folder vs subfolder) to stay under budget.  
-
----
-
-## 11. Contributing
-PRs and issues are welcome!
-Please format Go code with `go fmt` and follow Vue 3 style guidelines.
-
----
-
-## 12. License
-Custom MIT-like – see `LICENSE.md` file.
-
----
-
-Shotgun – load, aim, blast your code straight into the mind of an LLM.
-Iterate faster. Ship better. 
+</div>

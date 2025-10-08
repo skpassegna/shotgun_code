@@ -3,11 +3,27 @@
 import {main} from '../models';
 import {context} from '../models';
 
+export function CallLLMAPI(arg1:string,arg2:string,arg3:string,arg4:string,arg5:number,arg6:number):Promise<string>;
+
+export function CancelJob(arg1:string):Promise<void>;
+
+export function CancelShotgunContextGeneration():Promise<void>;
+
+export function EstimateCost(arg1:string,arg2:string,arg3:number,arg4:number):Promise<number>;
+
+export function EstimateTokens(arg1:string):Promise<number>;
+
+export function GeneratePrompt(arg1:string,arg2:string,arg3:string,arg4:string):Promise<string>;
+
 export function GetCustomIgnoreRules():Promise<string>;
 
 export function GetCustomPromptRules():Promise<string>;
 
+export function GetJobStatuses():Promise<Array<main.Job>>;
+
 export function ListFiles(arg1:string):Promise<Array<main.FileNode>>;
+
+export function ReadFileContents(arg1:string,arg2:Array<string>):Promise<Array<main.FileContentResult>>;
 
 export function RequestShotgunContextGeneration(arg1:string,arg2:Array<string>):Promise<void>;
 
@@ -28,3 +44,5 @@ export function StartFileWatcher(arg1:string):Promise<void>;
 export function StartupTest(arg1:context.Context):Promise<void>;
 
 export function StopFileWatcher():Promise<void>;
+
+export function WSLClipboardSetText(arg1:string):Promise<void>;

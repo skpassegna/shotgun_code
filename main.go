@@ -19,23 +19,6 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
-// Add this SelectDirectory method to the App struct in app.go
-// Or, if you prefer to keep app.go clean of Wails runtime imports for some reason,
-// you can define it here and pass `app.ctx` if needed, though it's better in app.go.
-// For this example, let's assume it's added to app.go and `app.ctx` is used.
-// Example of how it would look in app.go:
-/*
-func (a *App) SelectDirectory() (string, error) {
-	selectedDirectory, err := wailsRuntime.OpenDirectoryDialog(a.ctx, wailsRuntime.OpenDialogOptions{
-		Title: "Select Project Directory",
-	})
-	if err != nil {
-		return "", err
-	}
-	return selectedDirectory, nil
-}
-*/
-
 func main() {
 	app := NewApp() // Creates an instance of App from app.go
 	// Load icons
