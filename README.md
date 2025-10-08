@@ -11,13 +11,13 @@
 [![Wails](https://img.shields.io/badge/Wails-v2-blue.svg)](https://wails.io/)
 [![Vue.js](https://img.shields.io/badge/Vue.js-3-green.svg)](https://vuejs.org/)
 
-[Download Latest Release](https://github.com/glebkudr/shotgun_code/releases) • [Documentation](#documentation) • [Contributing](CONTRIBUTING.md)
+[Download Latest Release](https://github.com/skpassegna/shotgun_code/releases) • [Documentation](#documentation) • [Contributing](CONTRIBUTING.md)
 
 </div>
 
 ---
 
-## 🎯 What is Shotgun Code?
+## What is Shotgun Code?
 
 **Tired of AI coding assistants cutting off context, missing files, and giving incomplete responses?**
 
@@ -30,13 +30,13 @@ Shotgun Code solves this by generating **unlimited-size codebase snapshots** for
 - Copy-pasting between tools breaks your flow
 
 ### The Solution
-✅ **Unlimited Context** – No size limits! Generate contexts as large as needed
-✅ **Smart File Selection** – VSCode-style tree with search, filtering, and tri-state checkboxes
-✅ **Direct LLM Integration** – Built-in support for Google Gemini, OpenAI, Anthropic, and custom APIs
-✅ **Intelligent Diff Splitting** – Advanced bin-packing algorithm splits large diffs optimally
-✅ **Real-time Updates** – File watching with hot reload when your codebase changes
-✅ **Keyboard Shortcuts** – Navigate efficiently with VSCode-style shortcuts
-✅ **Token Estimation** – Real-time token counting and cost calculation
+ **Unlimited Context** – No size limits! Generate contexts as large as needed
+ **Smart File Selection** – VSCode-style tree with search, filtering, and tri-state checkboxes
+ **Direct LLM Integration** – Built-in support for Google Gemini, OpenAI, Anthropic, and custom APIs
+ **Intelligent Diff Splitting** – Advanced bin-packing algorithm splits large diffs optimally
+ **Real-time Updates** – File watching with hot reload when your codebase changes
+ **Keyboard Shortcuts** – Navigate efficiently with VSCode-style shortcuts
+ **Token Estimation** – Real-time token counting and cost calculation
 
 **Perfect for:** Python, JavaScript, TypeScript, Go, and any dynamically-typed language
 
@@ -44,11 +44,11 @@ Shotgun Code trades surgical, single-file prompts for a **"whole-repository blas
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Download & Install
 
-**👉 [Download the latest release](https://github.com/glebkudr/shotgun_code/releases)**
+**[Download the latest release](https://github.com/skpassegna/shotgun_code/releases)**
 
 Choose the version for your operating system:
 - **Windows:** `shotgun_code-windows-amd64.exe`
@@ -71,34 +71,34 @@ That's it! You're ready to blast your entire codebase into an AI's context windo
 
 ## ✨ Key Features
 
-### 🎯 Smart File Selection
+### Smart File Selection
 - **VSCode-style file tree** with tri-state checkboxes
 - **Search & filter** – Find files instantly with Ctrl+F
 - **Smart exclusions** – Respects `.gitignore`, custom patterns, and manual exclusions
 - **Bulk actions** – Select all, invert selection, expand/collapse all
 - **File metadata** – See file sizes and types at a glance
 
-### 🤖 Direct LLM Integration
+### Direct LLM Integration
 - **Google Gemini** – Best for large contexts (2M tokens), 25 free queries/day
 - **OpenAI GPT** – GPT-4, GPT-4 Turbo, and GPT-3.5
 - **Anthropic Claude** – Claude 3 Opus, Sonnet, and Haiku
 - **Custom APIs** – Connect to any OpenAI-compatible endpoint
 - **Token estimation** – Real-time cost calculation before execution
 
-### ✂️ Intelligent Diff Splitting
+### Intelligent Diff Splitting
 - **Advanced bin-packing algorithm** – Optimally splits large diffs
 - **Configurable size** – Set lines per split (default: 500)
 - **Preview splits** – See how your diff will be divided
 - **Copy individual splits** – Apply patches one at a time
 
-### ⚡ Modern UX/UI
+### Modern UX/UI
 - **9-screen workflow** – Guided onboarding-style navigation
 - **Keyboard shortcuts** – Ctrl+F, Ctrl+A, Ctrl+Enter, Escape, and more
 - **Toast notifications** – Real-time feedback for all operations
 - **Job queue status** – Monitor background tasks
 - **Dark mode** – Professional VSCode-inspired design
 
-### 🔧 Advanced Features
+### Advanced Features
 - **Unlimited context** – No 10MB limit! Generate contexts as large as needed
 - **File watching** – Real-time updates when your codebase changes
 - **Multi-tier clipboard** – WSL→Wails→Browser fallback for reliable copy
@@ -107,65 +107,65 @@ That's it! You're ready to blast your entire codebase into an AI's context windo
 
 ---
 
-## 📖 How to Use
+## How to Use
 
 Shotgun Code uses a modern, 9-screen workflow inspired by VSCode:
 
-### 1️⃣ Welcome
+###  Welcome
 - Quick overview and getting started guide
 - Recent projects (coming soon)
 
-### 2️⃣ Folder Selection
+### Folder Selection
 - Select your project root directory
 - Native OS folder picker
 - Remembers recent selections
 
-### 3️⃣ File Selection
+### File Selection
 - **Enhanced file tree** with tri-state checkboxes
 - **Search** – Press Ctrl+F to find files instantly
 - **Bulk actions** – Ctrl+A (select all), Ctrl+I (invert), Ctrl+E (expand all)
 - **Smart badges** – See which files are excluded by `.gitignore` or custom rules
 - **Real-time updates** – File watcher refreshes tree when files change
 
-### 4️⃣ Mode Selection
+### Mode Selection
 Choose your workflow mode:
-- **👨‍💻 Development** – Generate code, implement features, fix bugs
-- **🏗️ Architecture** – Design systems, plan refactors, create diagrams
-- **🐛 Debug** – Analyze errors, trace issues, suggest fixes
-- **📋 Tasks** – Break down work, create task lists, plan sprints
+- **Development** – Generate code, implement features, fix bugs
+- **Architecture** – Design systems, plan refactors, create diagrams
+- **Debug** – Analyze errors, trace issues, suggest fixes
+- **Tasks** – Break down work, create task lists, plan sprints
 
-### 5️⃣ Task Description
+###  Task Description
 - Describe what you want to accomplish
 - Add custom rules and constraints
 - Template suggestions based on selected mode
 - Keyboard shortcuts: Ctrl+S (save), Ctrl+Enter (continue)
 
-### 6️⃣ Prompt Review
+### Prompt Review
 - **Preview** – See the generated codebase snapshot
 - **Token count** – Real-time estimation and cost calculation
 - **Edit** – Make last-minute adjustments
 - **Copy** – One-click copy to clipboard
 
-### 7️⃣ Execution
+### Execution
 Choose how to execute:
-- **🤖 Direct API** – Use built-in LLM integration (Gemini, OpenAI, Claude, Custom)
-- **📋 Manual** – Copy prompt and paste into external tool
+- **Direct API** – Use built-in LLM integration (Gemini, OpenAI, Claude, Custom)
+- **Manual** – Copy prompt and paste into external tool
 - **Progress tracking** – Monitor background jobs in real-time
 
-### 8️⃣ Split Diff (if needed)
+### Split Diff (if needed)
 - **Intelligent splitting** – Advanced bin-packing algorithm
 - **Configure size** – Set lines per split (default: 500)
 - **Preview** – See how your diff will be divided
 - **Copy splits** – Apply patches one at a time
 
-### 9️⃣ Apply Patch
+### Apply Patch
 - **Review** – Preview changes before applying
 - **Copy** – Easy integration with Cursor, Windsurf, or other tools
 - **Summary** – See what was accomplished
 
 ---
 
-## ⌨️ Keyboard Shortcuts
+##  Keyboard Shortcuts
 
 Master these shortcuts for a 10x faster workflow:
 
@@ -195,42 +195,42 @@ Master these shortcuts for a 10x faster workflow:
 
 ---
 
-## 💡 Use Cases
+##  Use Cases
 
 | Scenario | How Shotgun Code Helps |
 |----------|------------------------|
-| **🐛 Bulk Bug Fixing** | "Fix X across 12 files" – LLM sees all usages with unlimited context |
-| **♻️ Large Refactoring** | Get full context and intelligently-split patches for complex refactors |
-| **📚 Onboarding** | Generate a single, searchable context file for new team members |
-| **📝 Documentation** | LLM can iterate over full source to generate docs/tests |
-| **🔍 Code Review** | Provide complete context for thorough AI-assisted reviews |
-| **🏗️ Architecture Planning** | Analyze entire codebase structure for system design decisions |
+| ** Bulk Bug Fixing** | "Fix X across 12 files" – LLM sees all usages with unlimited context |
+| ** Large Refactoring** | Get full context and intelligently-split patches for complex refactors |
+| ** Onboarding** | Generate a single, searchable context file for new team members |
+| ** Documentation** | LLM can iterate over full source to generate docs/tests |
+| ** Code Review** | Provide complete context for thorough AI-assisted reviews |
+| ** Architecture Planning** | Analyze entire codebase structure for system design decisions |
 
 ---
 
-## 💡 Best Practices
+## Best Practices
 
-### 🎯 File Selection
+### File Selection
 - **Use search** – Press Ctrl+F to quickly find files
 - **Leverage .gitignore** – Automatically excludes build artifacts and dependencies
 - **Custom ignore patterns** – Add patterns to `ignore.glob` for project-specific exclusions
 - **Trim the noise** – Exclude lock files, vendored libs, generated assets, media files
 - **Check file sizes** – Large binary files are shown with size badges
 
-### 💬 Prompting
+### Prompting
 - **Be specific** – Clear task descriptions get better results
 - **Use custom rules** – Add constraints, coding standards, or preferences
 - **Choose the right mode** – Development/Architecture/Debug/Tasks modes provide context
 - **Ask for diffs** – Request patch format for easier application
 - **Iterate** – Generate → Review → Execute → Refine → Repeat
 
-### 🤖 LLM Integration
+### LLM Integration
 - **Google Gemini** – Best for large contexts (2M tokens), 25 free queries/day
 - **Check token count** – Estimate cost before executing expensive prompts
 - **Temperature settings** – Lower (0.3-0.5) for code, higher (0.7-0.9) for creative tasks
 - **Model selection** – Use flash models for speed, pro models for complex reasoning
 
-### ✂️ Diff Management
+### Diff Management
 - **Split large diffs** – Use intelligent splitting for diffs >500 lines
 - **Apply incrementally** – Test each split before applying the next
 - **Review before applying** – Always check generated patches
@@ -238,7 +238,7 @@ Master these shortcuts for a 10x faster workflow:
 
 ---
 
-## ❓ Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -264,13 +264,13 @@ Master these shortcuts for a 10x faster workflow:
 
 ### Getting Help
 
-- 📖 **Documentation** – See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup
-- 🐛 **Report bugs** – [GitHub Issues](https://github.com/glebkudr/shotgun_code/issues)
-- 💬 **Discussions** – [GitHub Discussions](https://github.com/glebkudr/shotgun_code/discussions)
+-  **Documentation** – See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup
+-  **Report bugs** – [GitHub Issues](https://github.com/skpassegna/shotgun_code/issues)
+-  **Discussions** – [GitHub Discussions](https://github.com/skpassegna/shotgun_code/discussions)
 
 ---
 
-## 🛠️ Development
+##  Development
 
 Want to contribute or build from source? See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
 
@@ -278,7 +278,7 @@ Want to contribute or build from source? See [CONTRIBUTING.md](CONTRIBUTING.md) 
 
 ```bash
 # Clone the repository
-git clone https://github.com/glebkudr/shotgun_code.git
+git clone https://github.com/skpassegna/shotgun_code.git
 cd shotgun_code
 
 # Install dependencies
@@ -300,16 +300,16 @@ wails build
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 We welcome contributions! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
 
 **Ways to Contribute:**
-- 🐛 [Report bugs](https://github.com/glebkudr/shotgun_code/issues/new?template=bug_report.md)
-- 💡 [Request features](https://github.com/glebkudr/shotgun_code/issues/new?template=feature_request.md)
-- 📝 Improve documentation
-- 🔧 Submit pull requests
-- ⭐ Star the repository if you find it useful!
+-  [Report bugs](https://github.com/skpassegna/shotgun_code/issues/new?template=bug_report.md)
+- [Request features](https://github.com/skpassegna/shotgun_code/issues/new?template=feature_request.md)
+- Improve documentation
+- Submit pull requests
+- Star the repository if you find it useful!
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
@@ -336,17 +336,15 @@ See [ATTRIBUTION.md](ATTRIBUTION.md) for full credits and acknowledgments.
 
 ---
 
-## 📄 License
+## License
 
-Custom MIT-like license – see [LICENSE.md](LICENSE.md) for details.
+MIT license – see [LICENSE.md](LICENSE.md) for details.
 
 ---
 
 <div align="center">
 
 **Shotgun Code** – Load, aim, blast your code straight into the mind of an LLM.
-
-*Iterate faster. Ship better. Code smarter.* 🚀
 
 [⬆ Back to Top](#shotgun-code)
 
